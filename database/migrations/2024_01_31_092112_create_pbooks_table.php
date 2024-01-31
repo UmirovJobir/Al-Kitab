@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-//            $table->id();
+        Schema::create('pbooks', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->boolean('is_free')->default(false);
+            $table->integer('price');
+            $table->integer('discount')->default(0);
+            $table->integer('pages');
+            $table->string('cover_type', 32);
+            $table->string('format', 32);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('pbooks');
     }
 };

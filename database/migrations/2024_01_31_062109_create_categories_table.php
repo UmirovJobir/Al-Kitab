@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('order')->default(1);
             $table->boolean('is_active')->default(true);
+            $table->timestamps();
 
             $table->foreign('category_id')
                 ->references('id')
@@ -27,7 +28,6 @@ return new class extends Migration
 
             $table->index('category_id');
 
-            $table->timestamps();
         });
     }
 
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('categories');
     }
 };

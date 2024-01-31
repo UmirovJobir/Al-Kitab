@@ -11,7 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('publishers', function (Blueprint $table) {
+            $table->uuid('id')->primary()->unique();
+            $table->string('logo', 255);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('publishers');
     }
 };

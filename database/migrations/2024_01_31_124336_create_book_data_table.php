@@ -11,7 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('book_data', function (Blueprint $table) {
+            $table->uuid('id')->primary()->unique();
+            $table->string('isbn', 32);
+            $table->integer('edition')->default(1);
+            $table->integer('edition_year');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('book_data');
     }
 };

@@ -11,7 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('abooks', function (Blueprint $table) {
+            $table->uuid('id')->primary()->unique();
+            $table->boolean('is_free')->default(false);
+            $table->integer('price');
+            $table->integer('discount')->default(0);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('abooks');
     }
 };
