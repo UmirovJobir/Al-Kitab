@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique();
             $table->integer('pid');
+            $table->uuid('author_id');
             $table->uuid('publisher_id');
             $table->string('language', 5);
             $table->string('name', 255);
             $table->text('description');
             $table->boolean('is_available')->default(true);
-            $table->decimal('rating', 1, 1)->default(0);
+            $table->decimal('rating', 3, 1)->default(0);
             $table->timestamps();
 
             $table->index('pid');

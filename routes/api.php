@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PublisherController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +21,16 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('category/{category}/', [CategoryController::class, 'show']);
+Route::get('category/', [CategoryController::class, 'index']);
+
+Route::get('author/{author}', [AuthorController::class, 'show']);
+Route::get('author/', [AuthorController::class, 'index']);
+
+Route::get('publisher/{publisher}', [PublisherController::class, 'show']);
+Route::get('publisher/', [PublisherController::class, 'index']);
+
+
+Route::get('book/{book}', [BookController::class, 'show']);
+Route::get('book/', [BookController::class, 'index']);
