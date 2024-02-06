@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Category extends Model
 {
     use HasFactory;
+    protected $hidden = ['pivot'];
 
     public function subcategory(): HasMany
     {
@@ -26,4 +27,8 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id')->with('children');
     }
 
+    public function books()
+    {
+        return $this->belongsToMany(Book::class);
+    }
 }

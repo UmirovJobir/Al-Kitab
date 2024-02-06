@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('ebook_contents', function (Blueprint $table) {
             $table->id();
             $table->uuid('ebook_id');
+            $table->string('title', 255);
             $table->text('content');
             $table->integer('page');
             $table->timestamps();

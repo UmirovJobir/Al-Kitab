@@ -36,11 +36,10 @@ class CategorySeeder extends Seeder
                 'order' => 3,
                 'is_active' => true,
             ],
-            // Add more categories as needed
         ];
 
         foreach ($categories as $categoryData) {
-            $categoryData['parent_id'] = $rootCategory->id; // Link to the root category
+            $categoryData['parent_id'] = $rootCategory->id;
 
             Category::create($categoryData);
         }

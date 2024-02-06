@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PublisherController;
@@ -22,6 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('banner/', [BannerController::class, 'index']);
+
 Route::get('category/{category}/', [CategoryController::class, 'show']);
 Route::get('category/', [CategoryController::class, 'index']);
 
@@ -32,5 +35,6 @@ Route::get('publisher/{publisher}', [PublisherController::class, 'show']);
 Route::get('publisher/', [PublisherController::class, 'index']);
 
 
+Route::get('category/{category}/book', [BookController::class, 'getBooks']);
 Route::get('book/{book}', [BookController::class, 'show']);
 Route::get('book/', [BookController::class, 'index']);

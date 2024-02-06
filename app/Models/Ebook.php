@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Ebook extends Model
 {
     use HasFactory;
+
+    protected $keyType = 'string';
 }
