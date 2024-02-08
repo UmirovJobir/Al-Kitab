@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EbookController;
 use App\Http\Controllers\PublisherController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,10 @@ Route::get('publisher/{publisher}', [PublisherController::class, 'show']);
 Route::get('publisher/', [PublisherController::class, 'index']);
 
 
-Route::get('category/{category}/book', [BookController::class, 'getBooks']);
+Route::get('book', [BookController::class, 'index']);
 Route::get('book/{book}', [BookController::class, 'show']);
-Route::get('book/', [BookController::class, 'index']);
+//Route::get('book/{book}', [BookController::class, 'show']);
+//Route::get('book/', [BookController::class, 'index']);
+
+
+Route::get('category/{category}/book/{book}/ebook', [EbookController::class, 'get']);

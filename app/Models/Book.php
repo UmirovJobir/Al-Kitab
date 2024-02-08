@@ -11,9 +11,14 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $hidden = ['pivot'];
+    protected $hidden = ['pivot', 'created_at', 'updated_at'];
 
     protected $keyType = 'string';
+
+    public function bookImage(): HasOne
+    {
+        return $this->hasOne(BookImage::class, 'book_id');
+    }
 
     public function bookImages(): HasMany
     {
@@ -28,6 +33,11 @@ class Book extends Model
     public function ebook(): HasOne
     {
         return $this->hasOne(Ebook::class, 'id');
+    }
+
+    public function ebookWithContent(): HasOne
+    {
+        return $this->hasOne(Ebook::class, 'id')->with('ebookContent');
     }
 
     public function categories()
