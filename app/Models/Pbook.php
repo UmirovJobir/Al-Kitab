@@ -9,14 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 class Pbook extends Model
 {
     use HasFactory;
-
     use Filterable;
 
     protected $keyType = 'string';
-
     protected $hidden = ['created_at', 'updated_at'];
-
     protected $appends = ['discounted_price', 'sold_count'];
+
 
     public function soldCounts()
     {
@@ -30,9 +28,6 @@ class Pbook extends Model
 
     public function getDiscountedPriceAttribute()
     {
-        // Calculate the discounted price
-        $discountedPrice = $this->price - ($this->price * $this->discount / 100);
-
-        return $discountedPrice;
+        return $this->price - ($this->price * $this->discount / 100);
     }
 }

@@ -19,7 +19,8 @@ class BookController extends Controller
 
     public function index(PbookFilter $filter)
     {
-        $books = Book::filter($filter)
+        $books = Book::whereHas('pbook')
+                    ->filter($filter)
                     ->select('id', 'name', 'description', 'is_available', 'rating')
                     ->with([
                         'categories:id,name',
@@ -32,16 +33,8 @@ class BookController extends Controller
     }
 
 
-    public function show(Category $category, $book, Request $request)
+    public function show($book, Request $request)
     {
-//        if (request()->has('access_token')) {
-//            $accessToken =  request()->get('access_token');
-//
-//            $userInfo = Cache::has('user_info' . $accessToken) ? Cache::get('user_info' . $accessToken) : $this->getUserInfo($accessToken);
-//
-//            dd($userInfo);
-//        };
-
         $language = $request->header('Accept-Language', 'uz');
 
         $bookData = Book::with([
@@ -52,5 +45,13 @@ class BookController extends Controller
             ])
             ->find($book);
         return response($bookData);
+
+//        if (request()->has('access_token')) {
+//            $accessToken =  request()->get('access_token');
+//
+//            $userInfo = Cache::has('user_info' . $accessToken) ? Cache::get('user_info' . $accessToken) : $this->getUserInfo($accessToken);
+//
+//            dd($userInfo);
+//        };
     }
 }

@@ -9,5 +9,5 @@ class BookImage extends Model
 {
     use HasFactory;
 
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at', 'book_id'];
 }

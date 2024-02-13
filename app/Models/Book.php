@@ -11,13 +11,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Book extends Model
 {
     use HasFactory;
-
     use Filterable;
 
     protected $hidden = ['pivot', 'created_at', 'updated_at', 'author_id'];
-
     protected $keyType = 'string';
-
 
 
     public function author()

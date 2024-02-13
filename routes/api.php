@@ -38,8 +38,7 @@ Route::get('publisher/', [PublisherController::class, 'index']);
 
 Route::get('book', [BookController::class, 'index']);
 Route::get('book/{book}', [BookController::class, 'show']);
-//Route::get('book/{book}', [BookController::class, 'show']);
-//Route::get('book/', [BookController::class, 'index']);
 
 
-Route::get('category/{category}/book/{book}/ebook', [EbookController::class, 'get']);
+Route::get('ebook', [EbookController::class, 'index']);
+Route::get('ebook/{ebook}', [EbookController::class, 'show']);
