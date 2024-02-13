@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class AuthorInfo extends Model
 {
     use HasFactory;
+
+    protected $hidden = ['id', 'author_id', 'created_at', 'updated_at'];
 }

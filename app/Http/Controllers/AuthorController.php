@@ -9,11 +9,11 @@ class AuthorController extends Controller
 {
     public function index(Request $request)
     {
-        $language = $request->header('Accept-Language', 'en');
+        $language = $request->header('Accept-Language', 'uz');
 
         $authorWithFilteredInfo = Author::with([
             'authorInfo' => function ($query) use ($language) {$query->where('language', $language);},
-            'books' =>  function ($query) use ($language) {$query->where('language', $language);},
+//            'books' =>  function ($query) use ($language) {$query->where('language', $language);},
         ])->get();
 
         return response($authorWithFilteredInfo);

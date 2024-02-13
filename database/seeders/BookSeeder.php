@@ -34,7 +34,7 @@ class BookSeeder extends Seeder
                 'rating' => 4.5,
                 'images' => [
                     ['image' => 'book1_image1.jpg', 'order' => 1],
-                    ['image' => 'book1_image2.jpg', 'order' => 2],
+//                    ['image' => 'book1_image2.jpg', 'order' => 2],
                 ],
                 'pbook' => [
                     [
@@ -124,7 +124,7 @@ class BookSeeder extends Seeder
             ],
             [
                 'pid' => 33333,
-                'category_id' => [2],
+                'category_id' => [2, 3],
                 'author_id' => Author::first()->id,
                 'publisher_id' => Publisher::first()->id,
                 'language' => 'en',
@@ -133,8 +133,8 @@ class BookSeeder extends Seeder
                 'is_available' => true,
                 'rating' => 2.5,
                 'images' => [
-                    ['image' => 'book1_image1.jpg', 'order' => 1],
-                    ['image' => 'book1_image2.jpg', 'order' => 2],
+                    ['image' => 'book3_image1.jpg', 'order' => 1],
+                    ['image' => 'book3_image2.jpg', 'order' => 2],
                 ],
                 'pbook' => [
                     [

@@ -15,4 +15,24 @@ class Pbook extends Model
     protected $keyType = 'string';
 
     protected $hidden = ['created_at', 'updated_at'];
+
+    protected $appends = ['discounted_price', 'sold_count'];
+
+    public function soldCounts()
+    {
+        return $this->hasMany(SoldCount::class, 'book_id')->where('type', 'pbook');
+    }
+
+    public function getSoldCountAttribute()
+    {
+        return $this->soldCounts()->sum('quantity');
+    }
+
+    public function getDiscountedPriceAttribute()
+    {
+        // Calculate the discounted price
+        $discountedPrice = $this->price - ($this->price * $this->discount / 100);
+
+        return $discountedPrice;
+    }
 }

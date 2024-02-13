@@ -13,13 +13,24 @@ class Author extends Model
 
     protected $keyType = 'string';
 
-    public function authorInfo(): HasMany
+    protected $hidden = ['created_at', 'updated_at'];
+
+    protected $appends = ['book_count'];
+
+
+    public function authorInfo(): HasOne
     {
-        return $this->hasMany(AuthorInfo::class, 'author_id');
+        return $this->hasOne(AuthorInfo::class, 'author_id');
     }
 
     public function books(): HasMany
     {
         return $this->hasMany(Book::class, 'author_id');
     }
+
+    public function getBookCountAttribute(): int
+    {
+        return $this->books()->count();
+    }
+
 }

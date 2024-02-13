@@ -2,6 +2,7 @@
 namespace App\Http\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class PbookFilter extends Filter
@@ -79,7 +80,7 @@ class PbookFilter extends Filter
     {
         return $this->builder->whereHas('categories', function ($query) use ($value) {
                 $query->whereIn('categories.id', explode(',', $value));
-            });
+        });
     }
 
     /**
@@ -90,12 +91,37 @@ class PbookFilter extends Filter
      */
     public function sort(string $value): Builder
     {
-        if (!Schema::hasColumn('pbooks', $value)) {
-            return $this->builder->orderBy($value, 'desc');
+        if ($value === 'reads') {
+
+            return $this->builder
+                ->leftJoin('sold_counts', function ($join) {
+                    $join->on('books.id', '=', 'sold_counts.book_id')
+                        ->where('sold_counts.type', '=', 'pbook');
+                })
+                ->select('books.*')
+                ->orderBy(function ($query) {
+                    $query->selectRaw('SUM(quantity)')
+                        ->from('sold_counts')
+                        ->whereColumn('book_id', 'books.id')
+                        ->where('type', 'pbook');
+                }, 'asc');
+
+//                ->leftJoin('sold_counts', function ($join) {
+//                    $join->on('books.id', '=', 'sold_counts.book_id')
+//                        ->where('sold_counts.type', '=', 'pbook');
+//                })
+//                ->select('books.*', DB::raw('SUM(sold_counts.quantity) as sold_quantity'))
+//                ->groupBy('books.id')
+//                ->orderBy('sold_quantity', 'asc');
+
         }else {
-            return $this->builder->leftJoin('pbooks', 'books.id', '=', 'pbooks.id')
-                ->orderBy('pbooks.' . $value, 'desc')
-                ->select('books.*');
+            if (!Schema::hasColumn('pbooks', $value)) {
+                return $this->builder->orderBy($value, 'desc');
+            } else {
+                return $this->builder->leftJoin('pbooks', 'books.id', '=', 'pbooks.id')
+                    ->orderBy('pbooks.' . $value, 'desc')
+                    ->select('books.*');
+            }
         }
     }
 }

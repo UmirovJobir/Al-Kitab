@@ -19,20 +19,38 @@ class BookController extends Controller
 
     public function index(PbookFilter $filter)
     {
-        $books = Book::filter($filter)->with('categories:id,name', 'bookImages', 'pbook', 'ebook')->get();
+        $books = Book::filter($filter)
+                    ->select('id', 'name', 'description', 'is_available', 'rating')
+                    ->with([
+                        'categories:id,name',
+                        'bookImage',
+                        'pbook' => function ($query) {
+                            $query->select('id', 'price');
+                    }])
+                    ->get();
         return response($books);
     }
 
-    public function show(Category $category, $book)
+
+    public function show(Category $category, $book, Request $request)
     {
-        if (request()->has('access_token')) {
-            $accessToken =  request()->get('access_token');
+//        if (request()->has('access_token')) {
+//            $accessToken =  request()->get('access_token');
+//
+//            $userInfo = Cache::has('user_info' . $accessToken) ? Cache::get('user_info' . $accessToken) : $this->getUserInfo($accessToken);
+//
+//            dd($userInfo);
+//        };
 
-            $userInfo = Cache::has('user_info' . $accessToken) ? Cache::get('user_info' . $accessToken) : $this->getUserInfo($accessToken);
+        $language = $request->header('Accept-Language', 'uz');
 
-            dd($userInfo);
-        };
-        $bookData = Book::with('bookImages', 'pbook', 'ebook')->find($book);
+        $bookData = Book::with([
+            'author.authorInfo' => function ($query) use ($language) {
+                    $query->where('language', $language);
+            },
+            'bookImages', 'pbook', 'ebook',
+            ])
+            ->find($book);
         return response($bookData);
     }
 }

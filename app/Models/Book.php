@@ -14,13 +14,20 @@ class Book extends Model
 
     use Filterable;
 
-    protected $hidden = ['pivot', 'created_at', 'updated_at'];
+    protected $hidden = ['pivot', 'created_at', 'updated_at', 'author_id'];
 
     protected $keyType = 'string';
 
-    public function bookImage(): HasOne
+
+
+    public function author()
     {
-        return $this->hasOne(BookImage::class, 'book_id');
+        return $this->belongsTo(Author::class);
+    }
+
+    public function bookImage()
+    {
+        return $this->hasOne(BookImage::class, 'book_id')->orderBy('order');
     }
 
     public function bookImages(): HasMany
