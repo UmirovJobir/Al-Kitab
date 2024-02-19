@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Abook;
+use App\Models\AbookAudio;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\BookImage;
@@ -70,7 +72,46 @@ class BookSeeder extends Seeder
                             ]
                         ]
                     ],
-                ]
+                ],
+                'abook' => [
+                    [
+                        'is_free' => true,
+                        'price' => 10000,
+                        'discount' => 0,
+                        'abook_audio' => [
+                            [
+                                'name' => 'Abook 1, Sample Audio 1',
+                                'description' => 'Description of Sample Audio 1',
+                                'is_free' => true,
+                                'host' => 'example.com',
+                                'filename' => 'sample_audio_1.mp3',
+                                'duration' => 180,
+                                'order' => 1,
+                                'is_active' => true
+                            ],
+                            [
+                                'name' => 'Abook 1, Sample Audio 2',
+                                'description' => 'Description of Sample Audio 2',
+                                'is_free' => true,
+                                'host' => 'example.com',
+                                'filename' => 'sample_audio_2.mp3',
+                                'duration' => 160,
+                                'order' => 2,
+                                'is_active' => true
+                            ],
+                            [
+                                'name' => 'Abook 1, Sample Audio 3',
+                                'description' => 'Description of Sample Audio 3',
+                                'is_free' => true,
+                                'host' => 'example.com',
+                                'filename' => 'sample_audio_3.mp3',
+                                'duration' => 200,
+                                'order' => 3,
+                                'is_active' => true
+                            ],
+                        ]
+                    ],
+                ],
             ],
             [
                 'pid' => 22222,
@@ -120,7 +161,46 @@ class BookSeeder extends Seeder
                             ]
                         ]
                     ],
-                ]
+                ],
+                'abook' => [
+                    [
+                        'is_free' => false,
+                        'price' => 10000,
+                        'discount' => 10,
+                        'abook_audio' => [
+                            [
+                                'name' => 'Abook 2, Sample Audio 1',
+                                'description' => 'Description of Sample Audio ',
+                                'is_free' => false,
+                                'host' => 'example.com',
+                                'filename' => 'sample_audio_1.mp3',
+                                'duration' => 180,
+                                'order' => 1,
+                                'is_active' => true
+                            ],
+                            [
+                                'name' => 'Abook 2, Sample Audio 2',
+                                'description' => 'Description of Sample Audio 2',
+                                'is_free' => false,
+                                'host' => 'example.com',
+                                'filename' => 'sample_audio_2.mp3',
+                                'duration' => 160,
+                                'order' => 2,
+                                'is_active' => true
+                            ],
+                            [
+                                'name' => 'Abook 2, Sample Audio 3',
+                                'description' => 'Description of Sample Audio 3',
+                                'is_free' => false,
+                                'host' => 'example.com',
+                                'filename' => 'sample_audio_3.mp3',
+                                'duration' => 200,
+                                'order' => 3,
+                                'is_active' => true
+                            ],
+                        ]
+                    ],
+                ],
             ],
             [
                 'pid' => 33333,
@@ -170,7 +250,46 @@ class BookSeeder extends Seeder
                             ]
                         ]
                     ],
-                ]
+                ],
+                'abook' => [
+                    [
+                        'is_free' => false,
+                        'price' => 20000,
+                        'discount' => 10,
+                        'abook_audio' => [
+                            [
+                                'name' => 'Abook 3, Sample Audio 1',
+                                'description' => 'Description of Sample Audio ',
+                                'is_free' => false,
+                                'host' => 'example.com',
+                                'filename' => 'sample_audio_1.mp3',
+                                'duration' => 180,
+                                'order' => 1,
+                                'is_active' => true
+                            ],
+                            [
+                                'name' => 'Abook 3, Sample Audio 2',
+                                'description' => 'Description of Sample Audio 2',
+                                'is_free' => false,
+                                'host' => 'example.com',
+                                'filename' => 'sample_audio_2.mp3',
+                                'duration' => 160,
+                                'order' => 2,
+                                'is_active' => true
+                            ],
+                            [
+                                'name' => 'Abook 3, Sample Audio 3',
+                                'description' => 'Description of Sample Audio 3',
+                                'is_free' => false,
+                                'host' => 'example.com',
+                                'filename' => 'sample_audio_3.mp3',
+                                'duration' => 200,
+                                'order' => 3,
+                                'is_active' => true
+                            ],
+                        ]
+                    ],
+                ],
             ],
         ];
 
@@ -224,6 +343,30 @@ class BookSeeder extends Seeder
                         'title' => $contentData['title'],
                         'content' => $contentData['content'],
                         'page' => $contentData['page'],
+                    ]);
+                }
+            }
+
+            foreach ($bookData['abook'] as $abookData) {
+                $abook = Abook::create([
+                    'id' => $book->id,
+                    'is_free' => $ebookData['is_free'],
+                    'price' => $ebookData['price'],
+                    'discount' => $ebookData['discount'],
+                ]);
+
+                foreach ($abookData['abook_audio'] as $abookAudioData) {
+                    AbookAudio::create([
+                        'id' => Uuid::uuid4()->toString(),
+                        'abook_id' => $abook->id,
+                        'name' => $abookAudioData['name'],
+                        'description' => $abookAudioData['description'],
+                        'is_free' => $abookAudioData['is_free'],
+                        'host' => $abookAudioData['host'],
+                        'filename' => $abookAudioData['filename'],
+                        'duration' => $abookAudioData['duration'],
+                        'order' => $abookAudioData['order'],
+                        'is_active' => $abookAudioData['is_active']
                     ]);
                 }
             }

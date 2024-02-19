@@ -32,6 +32,6 @@ class Ebook extends Model
 
     public function ebookContent(): HasMany
     {
-        return $this->hasMany(EbookContent::class, 'ebook_id');
+        return $this->hasMany(EbookContent::class, 'ebook_id'); #->select('id', 'title', 'content');
     }
 }

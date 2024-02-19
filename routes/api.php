@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbookController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookController;
@@ -42,3 +43,6 @@ Route::get('book/{book}', [BookController::class, 'show']);
 
 Route::get('ebook', [EbookController::class, 'index']);
 Route::get('ebook/{ebook}', [EbookController::class, 'show']);
+
+Route::get('abook', [AbookController::class, 'index']);
+Route::get('abook/{abook}', [AbookController::class, 'show']);

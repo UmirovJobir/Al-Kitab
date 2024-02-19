@@ -39,12 +39,12 @@ class Book extends Model
 
     public function ebook(): HasOne
     {
-        return $this->hasOne(Ebook::class, 'id');
+        return $this->hasOne(Ebook::class, 'id', 'id');
     }
 
-    public function ebookWithContent(): HasOne
+    public function abook(): HasOne
     {
-        return $this->hasOne(Ebook::class, 'id')->with('ebookContent');
+        return $this->hasOne(Abook::class, 'id', 'id');
     }
 
     public function categories()

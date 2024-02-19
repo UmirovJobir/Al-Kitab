@@ -9,5 +9,5 @@ class EbookContent extends Model
 {
     use HasFactory;
 
-    protected $hidden = ['created_at', 'updated_at', 'ebook_id'];
+    protected $hidden = ['created_at', 'updated_at'];
 }
