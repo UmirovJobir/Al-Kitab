@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('user_id');
             $table->uuid('book_id');
+            $table->string('type', 8);
             $table->timestamps();
 
             $table->foreign('user_id')

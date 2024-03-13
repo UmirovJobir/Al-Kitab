@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('order_payments', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique();
-//            $table->uuid('order_id');
+            $table->uuid('order_id');
             $table->boolean('is_paid')->default(false);
             $table->boolean('is_refunded')->default(false);
+            $table->string('type');
             $table->timestamp('pay_time');
             $table->timestamp('refund_time');
             $table->timestamps();
 
-            $table->foreign('id')
+            $table->foreign('order_id')
                 ->references('id')
                 ->on('orders')
                 ->onDelete('cascade');

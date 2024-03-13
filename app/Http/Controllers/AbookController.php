@@ -33,9 +33,9 @@ class AbookController extends Controller
             $language = $request->header('Accept-Language', 'uz');
 
             $bookData = Book::with([
-                'author.authorInfo' => function ($query) use ($language) {
-                    $query->where('language', $language);
-                },
+//                'author.authorInfo' => function ($query) use ($language) {
+//                    $query->where('language', $language);
+//                },
                 'bookImages',
                 'abook.abookAudio'
             ])->find($abook);

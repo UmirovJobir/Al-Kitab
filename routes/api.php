@@ -6,6 +6,7 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EbookController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PublisherController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -46,3 +47,5 @@ Route::get('ebook/{ebook}', [EbookController::class, 'show']);
 
 Route::get('abook', [AbookController::class, 'index']);
 Route::get('abook/{abook}', [AbookController::class, 'show']);
+
+Route::get('order', [OrderController::class, 'index']);

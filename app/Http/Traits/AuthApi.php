@@ -14,7 +14,7 @@ trait AuthApi
         try {
             $response = $client->request('GET', 'https://api.core.abiduvn.uz/core/profile/profile/info', [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . $accessToken,
+                    'Authorization' => $accessToken,
                     'Content-Type' => 'application/json',
                     'Accept-Language' => 'uz-UZ',
                 ]
