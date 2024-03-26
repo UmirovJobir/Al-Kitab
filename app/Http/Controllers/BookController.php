@@ -7,6 +7,7 @@ use App\Http\Traits\AuthApi;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Ebook;
+use App\Models\Favourite;
 use Auth_api;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -44,14 +45,8 @@ class BookController extends Controller
             'bookImages', 'pbook', 'ebook',
             ])
             ->find($book);
+        $favorite = Favourite::where('book_id', $book)->exists();
+        $bookData['favorite'] = $favorite;
         return response($bookData);
-
-//        if (request()->has('access_token')) {
-//            $accessToken =  request()->get('access_token');
-//
-//            $userInfo = Cache::has('user_info' . $accessToken) ? Cache::get('user_info' . $accessToken) : $this->getUserInfo($accessToken);
-//
-//            dd($userInfo);
-//        };
     }
 }

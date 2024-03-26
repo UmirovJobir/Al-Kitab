@@ -18,11 +18,6 @@ return new class extends Migration
             $table->string('type', 8);
             $table->timestamps();
 
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
-
             $table->foreign('book_id')
                 ->references('id')
                 ->on('books')

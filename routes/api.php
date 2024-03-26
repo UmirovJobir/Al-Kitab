@@ -6,8 +6,10 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EbookController;
+use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PublisherController;
+use App\Http\Middleware\JwtAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -48,4 +50,7 @@ Route::get('ebook/{ebook}', [EbookController::class, 'show']);
 Route::get('abook', [AbookController::class, 'index']);
 Route::get('abook/{abook}', [AbookController::class, 'show']);
 
-Route::get('order', [OrderController::class, 'index']);
+Route::get('order', [OrderController::class, 'index'])->middleware(JwtAuth::class);
+
+Route::get('favourite', [FavouriteController::class, 'index'])->middleware(JwtAuth::class);
+Route::post('favourite', [FavouriteController::class, 'store'])->middleware(JwtAuth::class);

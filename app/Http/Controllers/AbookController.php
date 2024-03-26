@@ -30,12 +30,7 @@ class AbookController extends Controller
         if ($query==null) {
             return response()->json(['error' => 'Abook not found.'], Response::HTTP_NOT_FOUND);
         }else{
-            $language = $request->header('Accept-Language', 'uz');
-
             $bookData = Book::with([
-//                'author.authorInfo' => function ($query) use ($language) {
-//                    $query->where('language', $language);
-//                },
                 'bookImages',
                 'abook.abookAudio'
             ])->find($abook);
